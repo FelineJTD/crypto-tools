@@ -70,5 +70,9 @@ print('Plaintext: ')
 print(plaintext)
 
 linewidth = 100
-with open('output/result.txt', 'w') as f:
-    f.write(plaintext)
+with open('output/subs.txt', 'w') as f:
+    for i in range (0, len(plaintext), linewidth):
+        f.write(text[i:i+linewidth])
+        f.write('\n')
+        f.write(plaintext[i:i+linewidth])
+        f.write('\n\n')
