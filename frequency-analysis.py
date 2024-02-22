@@ -26,13 +26,53 @@ english_letter_frequency = ['E', 'T', 'A', 'O', 'I', 'N', 'S', 'R', 'H', 'D', 'L
 
 substitution = {}
 i = 0
-for key in frequency:
-    substitution[key] = english_letter_frequency[i]
-    i += 1
+# for key in frequency:
+#     substitution[key] = english_letter_frequency[i]
+#     i += 1
+#     if i >= 5:
+#         break
+
+substitution['E'] = 'E'
+substitution['H'] = 'T'
+substitution['Z'] = 'H'
+substitution['Y'] = 'A'
+substitution['F'] = 'N'
+substitution['C'] = 'D'
+substitution['N'] = 'V'
+substitution['U'] = 'U'
+substitution['W'] = 'L'
+substitution['M'] = 'Y'
+substitution['A'] = 'S'
+substitution['O'] = 'G'
+substitution['B'] = 'R'
+substitution['X'] = 'C'
+substitution['V'] = 'P'
+substitution['R'] = 'O'
+substitution['L'] = 'I'
+substitution['G'] = 'F'
+substitution['P'] = 'M'
+substitution['T'] = 'W'
+substitution['D'] = 'X'
+substitution['K'] = 'B'
+substitution['Q'] = 'Q'
+substitution['I'] = 'K'
+substitution['S'] = 'Z'
+substitution['J'] = 'J'
 
 plaintext = ''
 for char in text:
-    plaintext += substitution[char]
+    try:
+        plaintext += substitution[char]
+    except:
+        plaintext += '_'
 
 print('Plaintext: ')
 print(plaintext)
+
+linewidth = 100
+with open('output/subs.txt', 'w') as f:
+    for i in range (0, len(plaintext), linewidth):
+        f.write(text[i:i+linewidth])
+        f.write('\n')
+        f.write(plaintext[i:i+linewidth])
+        f.write('\n\n')
