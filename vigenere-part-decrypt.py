@@ -20,9 +20,10 @@ for i in range(len(text)):
         plaintext += '_'
 
 linewidth = 100
-with open('output/vig-subs.txt', 'w') as f:
-    for i in range (0, len(plaintext), linewidth):
-        f.write(text[i:i+linewidth])
-        f.write('\n')
-        f.write(plaintext[i:i+linewidth])
-        f.write('\n\n')
+with open('output/vig-subs-final.txt', 'w') as f:
+    f.write(plaintext)
+    # for i in range (0, len(plaintext), linewidth):
+    #     f.write(text[i:i+linewidth])
+    #     f.write('\n')
+    #     f.write(plaintext[i:i+linewidth])
+    #     f.write('\n\n')
