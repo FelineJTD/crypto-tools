@@ -12,15 +12,44 @@ plaintext = ''
 substitution = {}
 substitution['HE'] = 'TH'
 substitution['EH'] = 'HT'
-substitution['EL'] = 'HE'
-substitution['LE'] = 'EH'
 substitution['HL'] = 'TE'
 substitution['LH'] = 'ET'
+substitution['HA'] = 'TL'
+substitution['AH'] = 'LT'
+substitution['HT'] = 'TA'
+substitution['TH'] = 'AT'
+substitution['HT'] = 'TA'
+substitution['EL'] = 'HE'
+substitution['LE'] = 'EH'
+substitution['EA'] = 'HL'
+substitution['AE'] = 'LH'
+substitution['ET'] = 'HA'
+substitution['TE'] = 'AH'
+substitution['LA'] = 'EL'
+substitution['AL'] = 'LE'
+substitution['LT'] = 'EA'
+substitution['TL'] = 'AE'
+substitution['AT'] = 'LA'
+substitution['TA'] = 'AL'
+substitution['AV'] = 'T_'
+substitution['VA'] = '_T'
+substitution['AR'] = 'H_'
+substitution['RA'] = '_H'
+substitution['AM'] = 'E_'
+substitution['MA'] = '_E'
 substitution['QX'] = 'IN'
 substitution['XQ'] = 'NI'
 substitution['IN'] = 'QX'
 substitution['MH'] = 'RE'
 substitution['HM'] = 'ER'
+substitution['ER'] = 'HM'
+substitution['RE'] = 'MH'
+substitution['HV'] = 'TR'
+substitution['VH'] = 'RT'
+substitution['TR'] = 'HV'
+substitution['RT'] = 'VH'
+substitution['EV'] = 'TM'
+substitution['VE'] = 'MT'
 substitution['TM'] = 'EV'
 substitution['MT'] = 'VE'
 substitution['LV'] = 'T_'
@@ -49,7 +78,7 @@ for key in substitution:
     # balikan
     more_subs[key[1] + key[0]] = substitution[key][1] + substitution[key][0]
     # square
-    if (key[0] != key[1]) and (key[1] != substitution[key][0]) and (substitution[key][0] != substitution[key][1]) and (substitution[key][0] != '_') and (substitution[key][1] != '_'):
+    if (key[0] != key[1]) and (key[1] != substitution[key][0]) and (key[1] != substitution[key][1]) and (substitution[key][0] != substitution[key][1]) and (key[0] != substitution[key][0]) and (key[0] != substitution[key][1]) and (substitution[key][0] != '_') and (substitution[key][1] != '_'):
         more_subs[substitution[key][0] + substitution[key][1]] = key[0] + key[1]
         more_subs[substitution[key][1] + substitution[key][0]] = key[1] + key[0]
 
@@ -61,6 +90,10 @@ for i in range(0, len(text), 2):
             plaintext += substitution[bigram]
         except:
             plaintext += '__'
+            # try:
+            #     plaintext += more_subs[bigram]
+            # except:
+            #     plaintext += '__'
     except:
         pass
 
