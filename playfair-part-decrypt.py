@@ -10,8 +10,6 @@ with open(filename, 'r') as f:
 plaintext = ''
 
 substitution = {}
-substitution['DF'] = 'Y_'
-substitution['FD'] = '_Y'
 substitution['OE'] = 'D_'
 substitution['EO'] = '_D'
 substitution['KE'] = 'D_'
@@ -59,6 +57,7 @@ substitution['TA'] = 'AL'
 substitution['QX'] = 'IN'
 substitution['XQ'] = 'NI'
 substitution['IN'] = 'QX'
+substitution['NI'] = 'XQ'
 substitution['MH'] = 'RE'
 substitution['HM'] = 'ER'
 substitution['ER'] = 'HM'
@@ -77,9 +76,6 @@ substitution['HK'] = 'WY'
 
 substitution['VA'] = 'ST'
 substitution['AV'] = 'TS'
-
-substitution['IX'] = 'AD'
-substitution['XI'] = 'DA'
 
 substitution['ST'] = 'VA'
 substitution['TS'] = 'AV'
