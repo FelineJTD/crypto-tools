@@ -9,13 +9,14 @@ with open(filename, 'r') as f:
 
 key = [
     ['T', 'H', 'E', 'L', 'A'],
-    ['_', '_', 'Q', '_', 'I'],
-    ['_', '_', '_', '_', 'G'],
+    ['_', 'Y', 'Q', '_', 'I'],
+    ['_', '_', 'D', '_', 'G'],
     ['V', 'R', 'M', '_', 'S'],
     ['B', '_', 'N', '_', 'X']
 ]
 
 substitution = {}
+substitution['UR'] = '_P'
 substitution['OE'] = 'D_'
 substitution['EO'] = '_D'
 substitution['KE'] = 'D_'
@@ -48,6 +49,8 @@ substitution['IX'] = 'AS'
 substitution['XI'] = 'SA'
 substitution['DF'] = 'ON'
 substitution['FD'] = 'NO'
+substitution['ON'] = 'DF'
+substitution['NO'] = 'FD'
 
 substitution['HE'] = 'TH'
 substitution['EH'] = 'HT'
@@ -218,8 +221,16 @@ substitution['EB'] = 'TN'
 substitution['OM'] = 'D_'
 substitution['MO'] = '_D'
 
+substitution['QE'] = 'YH'
+substitution['EQ'] = 'HY'
+substitution['LP'] = 'FO'
+substitution['PL'] = 'OF'
+substitution['AQ'] = 'LY'
+substitution['QA'] = 'YL'
+
 plaintext = ''
 
+unkeyed = {}
 for i in range(0, len(text), 2):
     try:
         a = text[i]
@@ -245,8 +256,11 @@ for i in range(0, len(text), 2):
         bigram = text[i] + text[i+1]
         try:
             plaintext += substitution[bigram]
+            unkeyed[bigram] = substitution[bigram]
         except:
             plaintext += '__'
+
+print(unkeyed)
 
 linewidth = 100
 with open('output/playfair-subs.txt', 'w') as f:
