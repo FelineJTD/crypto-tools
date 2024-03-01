@@ -1,49 +1,5 @@
 # FUNCTION DARI SOAL
-
-# def affine_cipher(hex_values, m, b, n):
-#     cipher_hex = []
-#     for i in range(len(hex_values)):
-#         C = hex((m * int(hex_values[i], 16) + b) % n)
-#         cipher_hex.append(C)
-#     return cipher_hex
-
-# def affine_decrypt
-#     self.sanitize
-
-#     if @key_a == '' || @key_b == ''
-#       @plaintext = 'Invalid key'
-#       return
-#     end
-
-#     coef = 1
-#     for i in 1..25
-#       if (i * @key_a) % 26 == 1
-#         coef = i
-#         break
-#       end
-#     end
-
-
-#     @plaintext = ''
-#     for i in 0..@ciphertext.length-1
-#       @plaintext += (((@ciphertext[i].ord - 65 - @key_b) * coef) % 26 + 65).chr
-#     end
-#   end
-
-def affine_cipher_decrypt(hex_values, m, b, n):
-    plain_hex = []
-    coef = 1
-
-    for i in range(1, n):
-        if (i * m) % n == 1:
-            coef = i
-            break
-        
-    for i in range(len(hex_values)):
-        P = hex(((int(hex_values[i], 16) - b) * coef) % n)
-        plain_hex.append(P)
-
-    return plain_hex
+import math
 
 def read_image_to_hex(image_path):
     try:
@@ -77,12 +33,48 @@ def create_file_from_bytes(file_path, bytes_data):
         print("Error:", e)
 
 # END OF FUNCTION DARI SOAL
+        
+def affine_cipher_decrypt(hex_values, m, b, n):
+    plain_hex = []
+    coef = 1
+
+    for i in range(1, n):
+        if (i * m) % n == 1:
+            coef = i
+            break
+
+    print("Coef:", coef)
+        
+    for i in range(len(hex_values)):
+        P = hex(((int(hex_values[i], 16) - b) * coef) % n)
+        plain_hex.append(P)
+
+    return plain_hex
+
+
+# 0xFF -> 0x10
+# 0xD8 -> 0xe1
+def find_m_and_b(n):
+    m = 1
+    b = 1
+
+    # exhaustive key search
+    for i in range(1, n):
+        for j in range(1, n):
+            if ((((255 * i) + j) % 256) == 16) and ((((216 * i) + j) % 256) == 225):
+                m = i
+                b = j
+                break
+
+    return m, b
 
 def main():
-    image_path = "./output/chall-test.jpg"
+    image_path = "./input/chall.jpg"
     n = 256
-    b = 237
-    m = 241
+    m, b = find_m_and_b(n)
+
+    print("m:", m, "b:", b)
+    # 237 241
 
     # b = random.randint(1, n)
     # m = random.randint(1, n)
@@ -92,9 +84,10 @@ def main():
 
     hex_values = read_image_to_hex(image_path)
     if hex_values is not None:
+        print(hex_values[0:10])
         plain_hex = affine_cipher_decrypt(hex_values, m, b, n)
         bytearray_plain = array_of_hex_to_bytearray(plain_hex)
-        create_file_from_bytes("./output/chall-test-decrypt.jpg", bytearray_plain)
+        create_file_from_bytes("./output/flag.jpg", bytearray_plain)
 
 if __name__ == "__main__":
     main()
