@@ -7,7 +7,13 @@ filename = sys.argv[1]
 with open(filename, 'r') as f:
     text = f.read()
 
-plaintext = ''
+key = [
+    ['T', 'H', 'E', 'L', 'A'],
+    ['_', '_', 'Q', '_', 'I'],
+    ['_', '_', '_', '_', 'G'],
+    ['V', 'R', 'M', '_', 'S'],
+    ['B', '_', 'N', '_', 'X']
+]
 
 substitution = {}
 substitution['OE'] = 'D_'
@@ -211,42 +217,36 @@ substitution['BE'] = 'NT'
 substitution['EB'] = 'TN'
 substitution['OM'] = 'D_'
 substitution['MO'] = '_D'
-# substitution['LD'] = 'AT'
-# substitution['MH'] = 'NT'
 
-more_subs = {}
-
-# propagate substitutions
-for key in substitution:
-    # balikan
-    more_subs[key[1] + key[0]] = substitution[key][1] + substitution[key][0]
-    # square
-    if (key[0] != key[1]) and (key[1] != substitution[key][0]) and (key[1] != substitution[key][1]) and (substitution[key][0] != substitution[key][1]) and (key[0] != substitution[key][0]) and (key[0] != substitution[key][1]) and (substitution[key][0] != '_') and (substitution[key][1] != '_'):
-        more_subs[substitution[key][0] + substitution[key][1]] = key[0] + key[1]
-        more_subs[substitution[key][1] + substitution[key][0]] = key[1] + key[0]
-
-decrypted = 0
+plaintext = ''
 
 for i in range(0, len(text), 2):
     try:
+        a = text[i]
+        b = text[i+1]
+        a_row, a_col = -99, -99
+        b_row, b_col = -99, -99
+        for row in range(5):
+            for col in range(5):
+                if key[row][col] == a:
+                    a_row, a_col = row, col
+                if key[row][col] == b:
+                    b_row, b_col = row, col
+        if a_row == b_row:
+            plaintext += key[a_row][(a_col-1+5) % 5]
+            plaintext += key[b_row][(b_col-1+5) % 5]
+        elif a_col == b_col:
+            plaintext += key[(a_row-1+5) % 5][a_col]
+            plaintext += key[(b_row-1+5) % 5][b_col]
+        else:
+            plaintext += key[a_row][b_col]
+            plaintext += key[b_row][a_col]
+    except:
         bigram = text[i] + text[i+1]
         try:
             plaintext += substitution[bigram]
-            if '_' in substitution[bigram]:
-                decrypted += 1
-            else:
-                decrypted += 2
         except:
             plaintext += '__'
-            # try:
-            #     plaintext += more_subs[bigram]
-            # except:
-            #     plaintext += '__'
-    except:
-        pass
-
-print(plaintext)
-print(f'Decrypted: {decrypted/len(text)*100}%')
 
 linewidth = 100
 with open('output/playfair-subs.txt', 'w') as f:

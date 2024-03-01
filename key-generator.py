@@ -3,7 +3,7 @@
 
 # key_matrix = [['T', 'H', 'E', 'L', 'A'], ['V', 'R', 'M', '_', 'S']]
 # AISDX
-key_matrix = [['A', 'I', 'D', 'X', 'S']]
+key_matrix = [['V', 'R', 'M', 'W', 'S']]
 
 print('Possible subsitution keys: ')
 
