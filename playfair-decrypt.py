@@ -9,14 +9,17 @@ with open(filename, 'r') as f:
 
 key = [
     ['T', 'H', 'E', 'L', 'A'],
-    ['_', 'Y', 'Q', '_', 'I'],
-    ['_', '_', 'D', '_', 'G'],
-    ['V', 'R', 'M', '_', 'S'],
-    ['B', '_', 'N', '_', 'X']
+    ['Z', 'Y', 'Q', 'U', 'I'],
+    ['C', 'K', 'D', 'O', 'G'],
+    ['V', 'R', 'M', 'P', 'S'],
+    ['B', 'W', 'N', 'F', 'X']
 ]
 
 substitution = {}
 substitution['UR'] = '_P'
+substitution['RU'] = 'P_'
+substitution['AZ'] = '_I'
+substitution['ZA'] = 'I_'
 substitution['OE'] = 'D_'
 substitution['EO'] = '_D'
 substitution['KE'] = 'D_'
@@ -263,9 +266,10 @@ for i in range(0, len(text), 2):
 print(unkeyed)
 
 linewidth = 100
-with open('output/playfair-subs.txt', 'w') as f:
-    for i in range (0, len(plaintext), linewidth):
-        f.write(text[i:i+linewidth])
-        f.write('\n')
-        f.write(plaintext[i:i+linewidth])
-        f.write('\n\n')
+with open('output/playfair-final.txt', 'w') as f:
+    f.write(plaintext)
+    # for i in range (0, len(plaintext), linewidth):
+    #     f.write(text[i:i+linewidth])
+    #     f.write('\n')
+    #     f.write(plaintext[i:i+linewidth])
+    #     f.write('\n\n')
