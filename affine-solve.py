@@ -54,24 +54,32 @@ def affine_cipher_decrypt(hex_values, m, b, n):
 
 # 0xFF -> 0x10
 # 0xD8 -> 0xe1
-def find_m_and_b(n):
+def find_m_and_b():
     m = 1
     b = 1
+    
+    i = 0
+    x = (256 * i) - 209
 
-    # exhaustive key search
-    for i in range(1, n):
-        for j in range(1, n):
-            if ((((255 * i) + j) % 256) == 16) and ((((216 * i) + j) % 256) == 225):
-                m = i
-                b = j
-                break
+    while (x % 39) != 0:
+        i += 1
+        x = (256 * i) - 209
+
+    m = x // 39
+
+    i = 0
+    b = (16 - (255 * m)) + (256 * i)
+
+    while b < 0:
+        i += 1
+        b = (16 - (255 * m)) + (256 * i)
 
     return m, b
 
 def main():
     image_path = "./input/chall.jpg"
     n = 256
-    m, b = find_m_and_b(n)
+    m, b = find_m_and_b()
 
     print("m:", m, "b:", b)
     # 237 241
