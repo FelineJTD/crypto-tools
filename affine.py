@@ -40,7 +40,7 @@ def create_file_from_bytes(file_path, bytes_data):
         print("Error:", e)
 
 def main():
-    image_path = "./input/test.jpg"
+    image_path = "./flag.jpg"
     n = 256
 
     b = random.randint(1, n)
@@ -55,7 +55,7 @@ def main():
     if hex_values is not None:
         cipher_hex = affine_cipher(hex_values, m, b, n)
         bytearray_cipher = array_of_hex_to_bytearray(cipher_hex)
-        create_file_from_bytes("./output/chall-test.jpg", bytearray_cipher)
+        create_file_from_bytes("./chall.jpg", bytearray_cipher)
 
 if __name__ == "__main__":
     main()

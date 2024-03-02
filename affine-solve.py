@@ -1,5 +1,4 @@
 # FUNCTION DARI SOAL
-import math
 
 def read_image_to_hex(image_path):
     try:
@@ -42,8 +41,6 @@ def affine_cipher_decrypt(hex_values, m, b, n):
         if (i * m) % n == 1:
             coef = i
             break
-
-    print("Coef:", coef)
         
     for i in range(len(hex_values)):
         P = hex(((int(hex_values[i], 16) - b) * coef) % n)
@@ -82,17 +79,9 @@ def main():
     m, b = find_m_and_b()
 
     print("m:", m, "b:", b)
-    # 237 241
-
-    # b = random.randint(1, n)
-    # m = random.randint(1, n)
-
-    # while math.gcd(m, n) != 1:
-    #     m = random.randint(1, n)
 
     hex_values = read_image_to_hex(image_path)
     if hex_values is not None:
-        print(hex_values[0:10])
         plain_hex = affine_cipher_decrypt(hex_values, m, b, n)
         bytearray_plain = array_of_hex_to_bytearray(plain_hex)
         create_file_from_bytes("./output/flag.jpg", bytearray_plain)
